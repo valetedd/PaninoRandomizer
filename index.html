@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="eng">
+    <head>
+        <title>Panino Generator</title>
+        <link rel="icon" type="image/png" href="img/sandwich.png">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script type="text/javascript">
+            const luridoIngredients = {
+                affettati: [
+                        "prosciutto crudo", "prosciutto cotto",
+                        "salame piccante", "porchetta",
+                        "salame dolce", "bresaola",
+                        "mortadella", "meat is murder fuck you"],
+                formaggi: ["stracchino", "mozzarella", "fontina"],
+                verdureUnte: ["zucchine", "carciofi", "peperoni", "enough oily stuff for you"],
+                verdureLiscie: ["insalata", "pomodoro", "olive"]
+            };
+
+            function getCheckedElements(elementString) {
+                var result = {}
+                var elements = document.querySelectorAll(elementString);
+                for (var i = 0; i < elements.length; i++) {
+                    var element = elements[i]
+                    if (element.checked) {
+                        result[element.className] = element.value
+                    }
+                }
+                return result;
+            };
+
+            function randomizeIngredient(arr, n){
+                var itemNum = n
+                var res = []
+                while (itemNum > 0){
+                    var ingr = arr[Math.floor(Math.random()*arr.length)]
+                    res.push(ingr)
+                    itemNum -= 1
+                }
+                return res.join(", ");
+            };
+
+            function buildPanino(ingredients) {
+                var checkedMap = getCheckedElements("input[type='radio']")
+                var meat, oilyStuff, dairy, sides;
+
+                if (checkedMap.veg === "y") {
+                    meat = "no meat";
+                }
+                else {
+                    meat = ingredients.affettati[Math.floor(Math.random() * ingredients.affettati.length)];
+                }
+                switch (checkedMap.oil){
+                    case "none":
+                        oilyStuff = "no oily stuff";
+                        break;
+                    case "reg":
+                        oilyStuff = randomizeIngredient(ingredients.verdureUnte, 1);
+                        break;
+                    case "slip":
+                        oilyStuff = randomizeIngredient(ingredients.verdureUnte, 2);
+                        break;
+                    case "sl":
+                        oilyStuff = randomizeIngredient(ingredients.verdureUnte, 3);
+                        break;
+                    default:
+                        oilyStuff = randomizeIngredient(ingredients.formaggi, Math.floor(Math.random()*3));
+                        break;
+                }
+                switch (checkedMap.dairy){
+                    case "noch":
+                        dairy = "no cheese";
+                        break;
+                    case "norm":
+                        dairy = randomizeIngredient(ingredients.formaggi, 1);
+                        break;
+                    case "disg":
+                        dairy = randomizeIngredient(ingredients.formaggi, 2);
+                        break;
+                    default:
+                        dairy = randomizeIngredient(ingredients.formaggi, Math.floor(Math.random()*3));
+                        break;
+                    }
+                sides = randomizeIngredient(ingredients.verdureLiscie, Math.floor(Math.random()*4));
+                var sep = ", ";
+                return "Your Panino Lurido has the following ingredients: " + meat + sep + oilyStuff + sep + dairy + sep + sides +".";
+            };
+
+            function buildFreakPanino(obj){
+                var big_arr = Object.values(obj)
+                var arr = big_arr.flat()
+                var num_ingr = Math.floor(Math.random()*9)
+                console.log(num_ingr)
+                var result = []
+                for (var n=0; n<num_ingr; n++){
+                    idx = Math.floor(Math.random()*arr.length)
+                    result.push(arr[idx])
+                }
+                return "You absolute madman! Your freaky panino is made up of " + result.join(", ") + "."
+            };
+
+            function getPanino (mode){
+                var text;
+                if (mode === "norm"){
+                    text = buildPanino(luridoIngredients)
+                }
+                else {
+                    text = buildFreakPanino(luridoIngredients)
+                }
+                var output = document.getElementById("output").innerHTML = text;
+            };
+
+            function resetTicks (classAtt, val){
+                var checkboxes = document.getElementsByClassName(classAtt);
+                for (var i = 0; i < checkboxes.length; i++) {
+                    if (checkboxes[i].value !== val) {
+                        checkboxes[i].checked = false;
+                        }
+                    }
+            };
+        </script>
+        <style>
+            * { font-family: Comic Sans MS, sans-serif;
+                text-align: center;
+                -webkit-text-stroke-width: thin;
+                }
+
+            #home-title {
+                font-size: 60px;
+                -webkit-text-fill-color: aquamarine;
+            }
+            .form{
+                font-size: 25px;
+            }
+            .veg {
+                -webkit-text-fill-color: rgb(116, 211, 21);
+            }
+            .oil {
+                -webkit-text-fill-color: rgb(106, 164, 49);
+            }
+            .dairy {
+                -webkit-text-fill-color: rgb(194, 179, 19);
+            }
+            body {
+                background-image: url('img/nyan-cat-wallpaper-preview.jpg'); /* Replace 'pexels-steve-1704120.jpg' with the actual file name and path */
+                background-size:auto;
+                background-repeat: repeat;
+                background-attachment: scroll;
+                }
+            
+            /* Style for the big blue button */
+            #b-n { 
+                border-radius: 50%; 
+                width: 200px;
+                height: 200px;
+                border: none;
+                color: white;
+                font-weight: 900;
+                background: rgb(25, 0, 255);
+                text-shadow: 0 3px 1px rgba(122,17,8,.8);
+                box-shadow: 0 8px 0 rgb(28, 32, 144), 
+                    0 15px 20px rgba(0,0,0,.35);
+                transition: .4s all ease-in;
+                outline: none; 
+                cursor: pointer;
+                text-align: center;
+                -webkit-tap-highlight-color: rgba(0,0,0,0);
+                position: absolute;
+                left: calc(40% - 100px);
+                bottom: auto;
+                }
+                /* fix for IE 11 (and IE8+, although the earlier versions are harder to address) stupidly moving the inner button text on click */
+
+            /* Style for the big red button */
+            #b-c { 
+                border-radius: 50%; 
+                width: 200px;
+                height: 200px;
+                border: none;
+                color: white;
+                font-weight: 900;
+                background: rgb(236, 4, 4);
+                text-shadow: 0 3px 1px rgba(83, 12, 5, 0.8);
+                box-shadow: 0 8px 0 rgb(109, 2, 2), 
+                    0 15px 20px rgba(0,0,0,.35);
+                transition: .4s all ease-in;
+                outline: none; 
+                cursor: pointer;
+                text-align: center;
+                -webkit-tap-highlight-color: rgba(0,0,0,0);
+                position: absolute;
+                right: calc(40% - 100px);
+                bottom: auto;
+                }
+            .output-container {
+                text-align: center;
+                font-size: 20px;
+                -webkit-text-fill-color: blueviolet;
+                position: absolute;
+                bottom: 40px;
+                left: calc(37% - 100px)
+            }
+
+        </style>
+    </head>
+    <body>
+        <h1 id="home-title">Lurido Panino Generator</h1>
+        <div class="form">
+            <form method="get" id="form-1">
+                <p>Vegeterian:
+                    <label><input type="radio" class="veg" id="veg1"value="y" onclick="resetTicks(this.className, this.value)">Yes</label>
+                    <label><input type="radio" class="veg" id="veg2" value="n" onclick="resetTicks(this.className, this.value)" checked>No</label>
+                    <label><input type="radio" class="veg" id="veg3" value="dc" onclick="resetTicks(this.className, this.value)">Don't Care</label>
+                </p>
+                <p>Oiliness:
+                    <label><input type="radio" class="oil" id="oil1" value="none" onclick="resetTicks(this.className, this.value)">Zero</label>
+                    <label><input type="radio" class="oil" id="oil2" value="reg" onclick="resetTicks(this.className, this.value)" checked>Regular</label>
+                    <label><input type="radio" class="oil" id="oil3" value="slip" onclick="resetTicks(this.className, this.value)">Slippery</label>
+                    <label><input type="radio" class="oil" id="oil4" value="sl" onclick="resetTicks(this.className, this.value)">Short life</label>
+                </p>
+                <p>Cheesiness:
+                    <label><input type="radio" class="dairy" id="dairy1" value="noch" onclick="resetTicks(this.className, this.value)">No cheese</label>
+                    <label><input type="radio" class="dairy" id="dairy2" value="norm" onclick="resetTicks(this.className, this.value)" checked>Normal</label>
+                    <label><input type="radio" class="dairy" id="dairy3" value="disg" onclick="resetTicks(this.className, this.value)">Disgusting</label>
+                </p>       
+            </form>
+        </div>
+        <div class="button">
+            <button id="b-n" onclick="getPanino('norm')">Click to compose your Panino</button>
+        </div>
+        <div class="button">
+            <button id="b-c" onclick="getPanino('freaky')">I feel freaky</button>
+        </div>
+        <div id="output"><i>what will it be?</i></div>
+    </body>
+</html>
