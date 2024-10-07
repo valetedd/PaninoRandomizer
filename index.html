@@ -140,8 +140,8 @@
                 background-image: url('img/nyan-cat-wallpaper-preview.jpg'); /* Replace 'pexels-steve-1704120.jpg' with the actual file name and path */
                 background-size:auto;
                 background-repeat: repeat;
-                height: fit-content;
-                width: 100vw;
+                height: 100%;
+                width: 100%;
                 margin: 0px;
                 }
             
@@ -211,7 +211,7 @@
                     <label><input type="radio" class="oil" id="oil3" value="slip" onclick="resetTicks(this.className, this.value)">Slippery</label>
                     <label><input type="radio" class="oil" id="oil4" value="sl" onclick="resetTicks(this.className, this.value)">Short life</label>
                 </p>
-                <p style="background-color: rgb(180, 172, 25); width: fit-content; margin: auto;">Cheesiness:
+                <p style="background-color: rgb(235, 213, 71); width: fit-content; margin: auto;">Cheesiness:
                     <label><input type="radio" class="dairy" id="dairy1" value="noch" onclick="resetTicks(this.className, this.value)">No cheese</label>
                     <label><input type="radio" class="dairy" id="dairy2" value="norm" onclick="resetTicks(this.className, this.value)" checked>Normal</label>
                     <label><input type="radio" class="dairy" id="dairy3" value="disg" onclick="resetTicks(this.className, this.value)">Disgusting</label>
@@ -226,6 +226,6 @@
                 <button id="b-c" onclick="getPanino('freaky')">I feel freaky</button>
             </div>
         </div>
-        <div id="output" style="margin: 50px auto 50px auto; background-color: rgba(0, 0, 0, 0.666); width: fit-content;"><i>what will it be?</i></div>
+        <div id="output" style="margin: 30px auto; background-color: rgba(0, 0, 0, 0.666); width: fit-content;"><i>what will it be?</i></div>
     </body>
 </html>
