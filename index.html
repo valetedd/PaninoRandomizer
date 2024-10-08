@@ -10,7 +10,7 @@
                         "prosciutto crudo", "prosciutto cotto",
                         "salame piccante", "porchetta",
                         "salame dolce", "bresaola",
-                        "mortadella", "meat is murder fuck you"],
+                        "mortadella", "meat? again? no"],
                 formaggi: ["stracchino", "mozzarella", "fontina"],
                 verdureUnte: ["zucchine", "carciofi", "peperoni", "enough oily stuff for you"],
                 verdureLiscie: ["insalata", "pomodoro", "olive"]
@@ -63,7 +63,7 @@
                         oilyStuff = randomizeIngredient(ingredients.verdureUnte, 3);
                         break;
                     default:
-                        oilyStuff = randomizeIngredient(ingredients.formaggi, Math.floor(Math.random()*3));
+                        oilyStuff = randomizeIngredient(ingredients.verdureUnte, Math.floor(Math.random()*3));
                         break;
                 }
                 switch (checkedMap.dairy){
@@ -88,8 +88,9 @@
             function buildFreakPanino(obj){
                 var big_arr = Object.values(obj)
                 var arr = big_arr.flat()
-                var num_ingr = Math.floor(Math.random()*9)
-                console.log(num_ingr)
+                arr = arr.filter((e) => e != "meat? again? no" && e!= "enough oily stuff for you")
+                var num_ingr = Math.floor(Math.random()*11)
+                console.log(num_ingr, arr)
                 var result = []
                 for (var n=0; n<num_ingr; n++){
                     idx = Math.floor(Math.random()*arr.length)
@@ -131,10 +132,7 @@
             }
             .form{
                 font-size: 25px;
-            }
-            html {
-                width: 100vw;
-                height: 100vh;
+                width: 100%;
             }
             body {
                 background-image: url('img/nyan-cat-wallpaper-preview.jpg'); /* Replace 'pexels-steve-1704120.jpg' with the actual file name and path */
@@ -148,8 +146,8 @@
             /* Style for the big blue button */
             #b-n { 
                 border-radius: 50%; 
-                width: 20vw;
-                height: 20vw;
+                width: 17vw;
+                height: 17vw;
                 border: none;
                 color: white;
                 font-weight: 900;
@@ -169,8 +167,8 @@
             /* Style for the big red button */
             #b-c { 
                 border-radius: 50%; 
-                width: 20vw;
-                height: 20vw;
+                width: 17vw;
+                height: 17vw;
                 border: none;
                 color: white;
                 font-weight: 900;
