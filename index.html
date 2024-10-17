@@ -44,14 +44,14 @@
                 var meat, oilyStuff, dairy, sides;
 
                 if (checkedMap.veg === "y") {
-                    meat = "no meat";
+                    meat = "";
                 }
                 else {
                     meat = ingredients.affettati[Math.floor(Math.random() * ingredients.affettati.length)];
                 }
                 switch (checkedMap.oil){
                     case "none":
-                        oilyStuff = "no oily stuff";
+                        oilyStuff = "";
                         break;
                     case "reg":
                         oilyStuff = randomizeIngredient(ingredients.verdureUnte, 1);
@@ -80,7 +80,7 @@
                         dairy = randomizeIngredient(ingredients.formaggi, Math.floor(Math.random()*3));
                         break;
                     }
-                sides = randomizeIngredient(ingredients.verdureLiscie, Math.floor(Math.random()*4));
+                sides = randomizeIngredient(ingredients.verdureLiscie, Math.floor(Math.random()*2));
                 var sep = ", ";
                 return "Your Panino Lurido has the following ingredients: " + meat + sep + oilyStuff + sep + dairy + sep + sides +".";
             };
